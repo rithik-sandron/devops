@@ -18,4 +18,4 @@ runs:
 
     - name: Run Script
       shell: bash
-      run: ./github/actions/composite/init.sh
+      run: ${{ github.action_path }}/init.sh
