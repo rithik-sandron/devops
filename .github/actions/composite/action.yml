@@ -9,6 +9,10 @@ outputs:
   ref:
     description: "Checked out ref"
     value: ${{ steps.checkout.outputs.ref }}
+
+  result:
+    description: "Result from init.sh"
+    value: ${{ steps.script.outputs.result }}
 runs:
   using: "composite"
   steps:
