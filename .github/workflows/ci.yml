@@ -1,4 +1,4 @@
-name: Update Major Release Tag
+name: Running CI
 
 on:
   push:
@@ -10,5 +10,9 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout Repo
+        id: checkout
+        uses: actions/checkout@v4
+
       - uses: ./.github/actions/composite/action.yml
         id: ci
