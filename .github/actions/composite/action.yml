@@ -12,6 +12,10 @@ outputs:
 runs:
   using: "composite"
   steps:
+    - name: Checkout Repo
+      id: checkout
+      uses: actions/checkout@v4
+
     - name: Run Script
       shell: bash
       run: ./github/actions/composite/init.sh
