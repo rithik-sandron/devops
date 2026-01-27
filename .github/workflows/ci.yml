@@ -18,4 +18,4 @@ jobs:
         id: ci
 
       - run: echo "Ref= ${{ steps.ci.outputs.ref }}"
-      - run: echo "Init= ${{ steps.ci.outputs.init_result }}"
+      - run: echo "Init= ${{ steps.ci.outputs.result }}"
