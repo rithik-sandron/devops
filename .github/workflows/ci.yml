@@ -1,4 +1,4 @@
-name: Running CI
+name: CI
 
 on:
   push:
@@ -7,15 +7,19 @@ on:
       - master
 
 jobs:
-  test:
-    runs-on: macos-latest
+  run-composite-action:
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repo
-        id: checkout
+      - id: checkout
+        name: Checkout Repo
         uses: actions/checkout@v4
 
-      - uses: ./.github/actions/composite
-        id: ci
+      - run: echo "Ref = $GITHUB_REF"
+      - run: echo "Event = $GITHUB_EVENT_NAME"
+      - run: echo "workspace path = $GITHUB_WORKSPACE"
+      - run: echo "run by = $GITHUB_ACTOR"
 
-      - run: echo "Ref= ${{ steps.ci.outputs.ref }}"
-      - run: echo "Init= ${{ steps.ci.outputs.result }}"
+      - id: ci
+        uses: ./.github/actions/composite
+        with:
+          path: $GITHUB_WORKSPACE/init.sh

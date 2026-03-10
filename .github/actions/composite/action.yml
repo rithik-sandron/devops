@@ -1,25 +1,29 @@
 name: "Composite Action"
 description: "this is to study composite workflow"
+
 inputs:
   repo-token:
     description: "Github PA Token"
     required: false
     default: ${{ github.token }}
-outputs:
-  ref:
-    description: "Checked out ref"
-    value: ${{ steps.checkout.outputs.ref }}
 
+  path:
+    description: "Path to the shell script to run"
+    required: true
+
+outputs:
   result:
     description: "Result from init.sh"
     value: ${{ steps.script.outputs.result }}
+
 runs:
   using: "composite"
   steps:
-    - name: Checkout Repo
-      id: checkout
-      uses: actions/checkout@v4
-
-    - name: Run Script
+    - id: action-path
+      run: echo "Action path= $GITHUB_ACTION_PATH"
       shell: bash
-      run: ${{ github.action_path }}/init.sh
+
+    - id: script
+      name: Run Script
+      shell: bash
+      run: bash ${{ inputs.path }}
