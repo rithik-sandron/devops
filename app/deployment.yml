@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: hello-script
+  name: app
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: hello
+      app: app
   template:
     metadata:
       labels:
-        app: hello
+        app: app
     spec:
       containers:
         - name: hello
-          image: busybox:1.36
+          image: busybox:stable
           command: ["/bin/sh"]
           args: ["-c", "echo 'hello' && sleep 3600"]

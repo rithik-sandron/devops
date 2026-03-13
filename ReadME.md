@@ -165,6 +165,14 @@ argocd repo add https://github.com/rithik-sandron/devops.git
 
 # shows details and if sync policy is manual or auto
 argocd app get app-prod
+
 # sync resync app manually
 argocd app sync app-prod
+
+# to switch from manual to auto (if manual is applied initially via app.yml)
+argocd app set app-prod \
+  --sync-policy automated \
+  --auto-prune \
+  --self-heal
+
 ```
