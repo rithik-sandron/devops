@@ -163,6 +163,8 @@ argocd login localhost:8080 \
 argocd repo list
 argocd repo add https://github.com/rithik-sandron/devops.git
 
+# shows details and if sync policy is manual or auto
+argocd app get app-prod
 # sync resync app manually
 argocd app sync app-prod
 ```
