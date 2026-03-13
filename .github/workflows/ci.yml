@@ -22,4 +22,4 @@ jobs:
       - id: ci
         uses: ./.github/actions/composite
         with:
-          path: $GITHUB_WORKSPACE/init.sh
+          path: $GITHUB_WORKSPACE/app/init.sh

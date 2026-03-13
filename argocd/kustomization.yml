@@ -1,0 +1,8 @@
+# applies argocd to the cluster, this is used by argocd to manage itself
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: argocd
+resources:
+  - namespace.yml
+  - https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
