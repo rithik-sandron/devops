@@ -33,9 +33,9 @@ runs:
           TAG=$(echo $GITHUB_REF | sed 's|refs/tags/||')
         elif [[ $GITHUB_REF == refs/heads/main ]]; then
           len=${#run_NUM} 
-          major=$((len * 10 / 100))   
-          minor=$((len * 30 / 100))    
-          patch=$((len * 60 / 100))
+          major=$((len * 0.1))   
+          minor=$((len * 0.3))    
+          patch=$((len * 0.6))
           TAG="d${major}.${minor}.${patch}"
         fi
         echo "tag=$TAG" >> $GITHUB_OUTPUT
