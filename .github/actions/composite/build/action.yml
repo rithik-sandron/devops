@@ -32,7 +32,7 @@ runs:
       shell: bash
       run: |
         echo "Building Docker image using ${{ inputs.dockerfile }}"
-        docker build -t ${{ inputs.image-name }} -f ${{ inputs.dockerfile }} {{ inputs.path }}
+        docker buildx build -t ${{ inputs.image-name }} -f ${{ inputs.dockerfile }} {{ inputs.path }}
 
 # outputs:
 #   result:

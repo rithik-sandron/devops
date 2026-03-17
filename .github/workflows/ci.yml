@@ -19,6 +19,6 @@ jobs:
       - id: build
         uses: ./.github/actions/composite/build
         with:
-          dockerfile: $GITHUB_WORKSPACE/app/Containerfile
-          path: $GITHUB_WORKSPACE/app
+          dockerfile: ./app/Containerfile
+          path: ./app
           image-name: app:${GITHUB_SHA}
