@@ -31,7 +31,7 @@ jobs:
 
       - id: modify readme
         run: |
-          echo "🟢 `Current Image deployed= ${{ steps.build.outputs.image }}`\n" > temp.md && \
+          echo "🟢 **Current Image deployed= ${{ steps.build.outputs.image }}**\n" > temp.md && \
           cat temp.md $GITHUB_WORKSPACE/README.md > $GITHUB_WORKSPACE/README.md && \
           rm temp.md
           git config user.name "github-actions[bot]"
