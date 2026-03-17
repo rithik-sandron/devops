@@ -62,12 +62,15 @@ In Docker there is a node level daemon running(eg: containerd). But Podman direc
 brew install podman
 podman machine init
 podman machine start
+podman machine stop
 
 podman build --platform linux/amd64 --load --no-cache -f Containerfile -t hello:1 .
 podman run --rm -it hello:1 sh
 podman run --platform linux/amd64 hello:1
 podman save hello:1 -o hello.tar
 trivy fs hello.tar
+
+podman system connection default podman-machine-default
 ```
 
 #### CRI-O
@@ -101,7 +104,8 @@ Even after switching to podman, GKE still uses `containerd` to manage pods. Then
 brew install kind
 
 # tells kind to use podman instead of docker
-KIND_EXPERIMENTAL_PROVIDER=podman
+export KIND_EXPERIMENTAL_PROVIDER=podman
+
 
 # cluster is created with k8s image
 kind create cluster --name k8s --wait 30s
@@ -111,9 +115,9 @@ kind delete cluster --name k8s
 
 # set context to interact with the cluster
 # By default, the cluster access configuration is stored in ${HOME}/.kube/config
+kubectl config get-contexts
 kubectl cluster-info --context kind-k8s
 kubectl config use-context kind-k8s
-kubectl config get-contexts
 ```
 
 ## Argo CD
@@ -147,8 +151,8 @@ argocd admin dashboard -n argocd
 
 Argo CD applications, projects and settings can be defined declaratively using Kubernetes manifests. These can be updated using kubectl apply, without needing to touch the argocd command-line tool.
 
-- `app/deployment.yml` contains deployment manifest
-- `argocd/app.yml` contains the argocd app resource to sync app deployment
+- `argocd/app.yml` contains the argocd Application resource to sync a directory mentioned as "path"
+- `app/*` directory that is synced via argocd
 
 ```bash
 kubectl apply -n argocd -f argocd/app.yml
@@ -175,4 +179,12 @@ argocd app set app-prod \
   --auto-prune \
   --self-heal
 
+# refresh and watch argo sync the app
+argocd app get app-prod --refresh --watch
+
+# check app log to see "hello" printed
+kubectl logs deployment/app -n prod
+
+# sh into the app container
+kubectl exec -it deployment/app -n prod -- /bin/sh
 ```

@@ -7,19 +7,25 @@ on:
       - master
 
 jobs:
-  run-composite-action:
+  checkout:
     runs-on: ubuntu-latest
     steps:
-      - id: checkout
-        name: Checkout Repo
-        uses: actions/checkout@v4
-
       - run: echo "Ref = $GITHUB_REF"
       - run: echo "Event = $GITHUB_EVENT_NAME"
       - run: echo "workspace path = $GITHUB_WORKSPACE"
       - run: echo "run by = $GITHUB_ACTOR"
 
-      - id: ci
-        uses: ./.github/actions/composite
+      - id: checkout
+        name: Checkout Repo
+        uses: actions/checkout@v4
+
+  build:
+    needs: checkout
+    runs-on: ubuntu-latest
+    steps:
+      - id: build
+        uses: ./.github/actions/composite/build-action.yml
         with:
-          path: $GITHUB_WORKSPACE/app/init.sh
+          dockerfile: $GITHUB_WORKSPACE/app/Dockerfile
+          path: $GITHUB_WORKSPACE/app
+          image-name: app:${GITHUB_SHA}

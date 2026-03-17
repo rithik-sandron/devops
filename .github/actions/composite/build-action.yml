@@ -1,0 +1,40 @@
+name: "Docker Build Action"
+description: "Build Action to build given dockerfile"
+
+inputs:
+  repo-token:
+    description: "Github PA Token"
+    required: false
+    default: ${{ github.token }}
+
+  dockerfile:
+    description: "Path to the Dockerfile to build"
+    required: false
+    default: "Dockerfile"
+
+  path:
+    description: "Path to the shell script to run"
+    required: true
+
+  image-name:
+    description: "Name of the Docker image to build"
+    required: false
+    default: "local"
+
+runs:
+  using: "composite"
+  steps:
+    - id: action-path
+      run: echo "Github Action path = $GITHUB_ACTION_PATH"
+      shell: bash
+
+    - id: build
+      shell: bash
+      run: |
+        echo "Building Docker image using ${{ inputs.dockerfile }}"
+        docker build -t ${{ inputs.image-name }} -f ${{ inputs.dockerfile }} {{ inputs.path }}
+
+# outputs:
+#   result:
+#     description: "image"
+#     value: ${{ steps.build.outputs.result }}
