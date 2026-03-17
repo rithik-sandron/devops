@@ -33,7 +33,7 @@ runs:
           TAG=$(echo $GITHUB_REF | sed 's|refs/tags/||')
         elif [[ $GITHUB_REF == refs/heads/main ]]; then
           TAG="0.0.${GITHUB_RUN_NUMBER}"
-
+        fi
         echo "tag=$TAG" >> $GITHUB_OUTPUT
         echo "app_with_tag=app:$TAG" >> $GITHUB_OUTPUT
 
