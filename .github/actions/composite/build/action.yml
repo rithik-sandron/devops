@@ -36,6 +36,6 @@ runs:
         echo "image=${{ inputs.image-name }}" >> $GITHUB_OUTPUT
 
 outputs:
-  result:
-    description: "image"
+  image:
+    description: "image name with tag"
     value: ${{ steps.build.outputs.image }}
