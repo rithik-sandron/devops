@@ -29,11 +29,11 @@ jobs:
       - id: print
         run: echo "Image = ${{ steps.build.outputs.image }}"
 
-      - id: modify readme
-        run: |
-          echo "`🟢 Current Image deployed= ${{ steps.build.outputs.image }}`\n" > $GITHUB_WORKSPACE/README.md
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add README.md
-          git commit -m "Add docker image reference to README [ci bot]" || exit 0
-          git push
+      # - id: modify readme
+      #   run: |
+      #     echo "`🟢 Current Image deployed= ${{ steps.build.outputs.image }}`\n" > $GITHUB_WORKSPACE/README.md
+      #     git config user.name "github-actions[bot]"
+      #     git config user.email "github-actions[bot]@users.noreply.github.com"
+      #     git add README.md
+      #     git commit -m "Add docker image reference to README [ci bot]" || exit 0
+      #     git push
