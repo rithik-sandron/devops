@@ -35,10 +35,6 @@ runs:
         docker buildx build -t ${{ inputs.image-name }} -f ${{ inputs.dockerfile }} ${{ inputs.path }}
         echo "image=${{ inputs.image-name }}" >> $GITHUB_OUTPUT
 
-    - id: print-image
-      shell: bash
-      run: echo "Image= ${{ steps.build.outputs.image }}"
-
 outputs:
   result:
     description: "image"
