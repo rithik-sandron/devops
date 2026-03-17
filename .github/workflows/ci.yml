@@ -29,7 +29,7 @@ jobs:
       - id: print
         run: echo "Image = ${{ steps.build.outputs.image }}"
 
-      - if: modify readme
+      - id: modify readme
         run: |
           echo "`🟢 Current Image deployed: ${{ steps.build.outputs.image }}`\n" > $GITHUB_WORKSPACE/README.md
           git config user.name "github-actions[bot]"
