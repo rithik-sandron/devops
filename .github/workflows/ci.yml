@@ -28,15 +28,3 @@ jobs:
 
       - id: print
         run: echo "Image = ${{ steps.build.outputs.image }}"
-
-      - id: modify readme
-        run: |
-          echo "🟢 **Current Image deployed= ${{ steps.build.outputs.image }}**\n" > temp.md && \
-          cat temp.md $GITHUB_WORKSPACE/README.md > $GITHUB_WORKSPACE/README.md && \
-          rm temp.md
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add README.md
-          git commit -m "Add docker image reference to README [skip ci]" || exit 0
-          git push
-
