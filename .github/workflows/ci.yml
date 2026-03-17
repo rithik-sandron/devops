@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  checkout-repo:
+  build:
     runs-on: ubuntu-latest
     steps:
       - run: echo "Ref = $GITHUB_REF"
@@ -14,14 +14,8 @@ jobs:
       - run: echo "workspace path = $GITHUB_WORKSPACE"
       - run: echo "run by = $GITHUB_ACTOR"
 
-      - id: checkout
-        name: Checkout Repo
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-  build:
-    needs: checkout-repo
-    runs-on: ubuntu-latest
-    steps:
       - id: build
         uses: ./.github/actions/composite/build
         with:
