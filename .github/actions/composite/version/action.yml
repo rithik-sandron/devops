@@ -32,7 +32,6 @@ runs:
         if [[ $GITHUB_REF == refs/tags/v* ]]; then
           TAG=$(echo $GITHUB_REF | sed 's|refs/tags/||')
         elif [[ $GITHUB_REF == refs/heads/main ]]; then
-          
           TAG="0.0.${GITHUB_RUN_NUMBER}"
 
         echo "tag=$TAG" >> $GITHUB_OUTPUT
