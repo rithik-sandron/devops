@@ -1,0 +1,47 @@
+name: "Docker Build Action"
+description: "Build Action to build given dockerfile"
+
+inputs:
+  repo-token:
+    description: "Github PA Token"
+    required: false
+    default: ${{ github.token }}
+
+  dockerfile:
+    description: "Path to the Dockerfile to build"
+    required: false
+    default: "Dockerfile"
+
+  path:
+    description: "Path to the shell script to run"
+    required: true
+
+  image-name:
+    description: "Name of the Docker image to build"
+    required: false
+    default: "local"
+
+runs:
+  using: "composite"
+  steps:
+    - id: version
+      shell: bash
+      # Git tag: v1.2.3 → app:1.2.3
+      # git push to main: 10th time → app:0.0.10
+      run: |
+        if [[ $GITHUB_REF == refs/tags/v* ]]; then
+          TAG=$(echo $GITHUB_REF | sed 's|refs/tags/||')
+        elif [[ $GITHUB_REF == refs/heads/main ]]; then
+          
+          TAG="0.0.${GITHUB_RUN_NUMBER}"
+
+        echo "tag=$TAG" >> $GITHUB_OUTPUT
+        echo "app_with_tag=app:$TAG" >> $GITHUB_OUTPUT
+
+outputs:
+  app_with_tag:
+    description: "app_with_tag"
+    value: ${{ steps.version.outputs.app_with_tag }}
+  tag:
+    description: "tag"
+    value: ${{ steps.version.outputs.tag }}

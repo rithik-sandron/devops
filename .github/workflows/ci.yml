@@ -16,9 +16,12 @@ jobs:
 
       - uses: actions/checkout@v4
 
+      - id: version
+        uses: ./.github/actions/composite/version
+
       - id: build
         uses: ./.github/actions/composite/build
         with:
           dockerfile: $GITHUB_WORKSPACE/app/Containerfile
           path: $GITHUB_WORKSPACE/app
-          image-name: app:${GITHUB_SHA}
+          image-name: ${{ steps.version.outputs.app_with_tag }}
