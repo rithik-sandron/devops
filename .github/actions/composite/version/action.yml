@@ -26,13 +26,16 @@ runs:
   steps:
     - id: version
       shell: bash
-      # Git tag: v1.2.3 → app:1.2.3
+      # Git tag: v1.2.3 → app:v1.2.3
       # git push to main: 10th time → app:0.0.10
       run: |
         if [[ $GITHUB_REF == refs/tags/v* ]]; then
           TAG=$(echo $GITHUB_REF | sed 's|refs/tags/||')
         elif [[ $GITHUB_REF == refs/heads/main ]]; then
-          TAG="0.0.${GITHUB_RUN_NUMBER}"
+          minor=$(($GITHUB_RUN_NUMBER % 100))
+          major=$(($minor % 100))
+          patch=$(($GITHUB_RUN_NUMBER / 100))
+          TAG="d${major}.${minor}.${patch}"
         fi
         echo "tag=$TAG" >> $GITHUB_OUTPUT
         echo "app_with_tag=app:$TAG" >> $GITHUB_OUTPUT
