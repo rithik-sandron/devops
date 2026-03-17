@@ -25,16 +25,21 @@ runs:
   using: "composite"
   steps:
     - id: action-path
-      run: echo "Github Action path = $GITHUB_ACTION_PATH"
       shell: bash
+      run: echo "Github Action path = $GITHUB_ACTION_PATH"
 
     - id: build
       shell: bash
       run: |
         echo "Building Docker image using ${{ inputs.dockerfile }}"
         docker buildx build -t ${{ inputs.image-name }} -f ${{ inputs.dockerfile }} ${{ inputs.path }}
+        echo "image=${{ inputs.image-name }}" >> $GITHUB_OUTPUT
 
-# outputs:
-#   result:
-#     description: "image"
-#     value: ${{ steps.build.outputs.result }}
+    - id: print-image
+      shell: bash
+      run: echo "Image= ${{ steps.build.outputs.image }}"
+
+outputs:
+  result:
+    description: "image"
+    value: ${{ steps.build.outputs.image }}
