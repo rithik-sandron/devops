@@ -70,7 +70,9 @@ podman run --platform linux/amd64 hello:1
 podman save hello:1 -o hello.tar
 trivy fs hello.tar
 
-podman system connection default podman-machine-default
+export DOCKER_HOST=$(podman system connection default podman-machine-default)
+export DOCKER_HOST=ssh://root@127.0.0.1:61056/run/podman/podman.sock 
+
 ```
 
 #### CRI-O
