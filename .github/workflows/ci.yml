@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - id: build
-        uses: $GITHUB_WORKSPACE/.github/actions/composite/build/
+        uses: ./.github/actions/composite/build-action.yml
         with:
           dockerfile: $GITHUB_WORKSPACE/app/Dockerfile
           path: $GITHUB_WORKSPACE/app
