@@ -54,3 +54,9 @@ tasks:
       - git add -A
       - git commit -m "updates"
       - git push
+  cdeploy:
+    desc: "Deploys argocd and apps to cluster"
+    cmds:
+      - task lstart
+      - kubectl apply -k argocd/base --server-side --force-conflicts
+      - kubectl apply -f argocd/sync
