@@ -151,6 +151,7 @@ Argo CD needs a cluster with CoreDNS. A Kind cluster has CoreDNS by default. Arg
 # Deploys kustomization from the argocd folder
 kubectl apply -k argocd --server-side --force-conflicts
 argocd admin dashboard -n argocd
+kubectl port-forward svc/app 3000:80 -n argocd  
 ```
 
 #### 📦 Deploying Applications
