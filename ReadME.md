@@ -5,13 +5,23 @@
 - [Podman](#podman)
 - [Local Cluster](#local-cluster)
 - [ArgoCD](#argocd)
-- Terraform
+- [Terraform](#-terraform)
 - GCP
 - Monitoring
 - Alerts
 - DevSecOps
   - Vulnerability scanning and reports
   - ISO27001 audit
+
+## 🗂️ Taskfile
+
+```bash
+task setup                    # first-time bootstrap
+task start                    # start local env
+task stop                     # stop local env
+task push                     # quick git push
+task terraform:create -- vpc  # new terraform module named "vpc"
+```
 
 ## ⚙️ Github Actions
 
@@ -26,7 +36,6 @@
 ├── actions/
 └── composite-action/
     └── action.yml 	    # Action
-
 └── docker-action/
     ├── action.yml      # Action
     └── Dockerfile
@@ -181,4 +190,68 @@ kubectl logs deployment/app -n prod
 
 # Shell into the app container
 kubectl exec -it deployment/app -n prod -- /bin/sh
+```
+
+## 🏗️ Terraform
+
+Terraform is a declarative IaC tool that provisions infrastructure by reconciling desired state (`.tf` files) with actual state (`.tfstate`). It uses providers (plugins) to talk to APIs — AWS, GCP, Kubernetes, etc.
+
+### Roadmap
+
+| Phase | Topic | What to build |
+|---|---|---|
+| **1. Basics** | HCL syntax, providers, resources, variables, outputs, locals | Provision a GCS bucket |
+| **2. State** | Local vs remote state, `terraform.tfstate`, locking, `state mv/rm/import` | Remote backend on GCS + DynamoDB lock |
+| **3. Modules** | Input/output vars, `source`, registry modules, composition | Reusable VPC + compute module |
+| **4. Expressions** | `count`, `for_each`, `dynamic`, `depends_on`, `lifecycle`, conditionals | Multi-env resource sets |
+| **5. Backends** | GCS, S3+DynamoDB, Terraform Cloud, state isolation per env | Workspaced backend |
+| **6. Patterns** | Workspaces vs directory-per-env, Terragrunt DRY configs, `moved` blocks | Multi-env layout |
+| **7. Testing** | `terraform validate`, `plan` in CI, `terraform test` (native), Terratest | PR gate that runs plan |
+| **8. Security** | Secrets via Vault/SOPS, least-privilege service accounts, `sensitive = true` | No plaintext secrets in state |
+| **9. CI/CD** | Atlantis or GitHub Actions, plan on PR, apply on merge, drift detection | Full GitOps pipeline |
+| **10. Enterprise** | HCP Terraform, Sentinel policies, cost estimation, audit logs | Policy-as-code gate |
+
+### Core Concepts
+
+- **Provider** — plugin that maps resources to API calls (`google`, `aws`, `kubernetes`)
+- **Resource** — a managed infrastructure object (`google_storage_bucket`, `aws_instance`)
+- **Data source** — read-only lookup of existing infra not managed by this config
+- **Module** — reusable group of resources with inputs/outputs; promotes DRY configs
+- **State** — JSON snapshot of real infra; source of truth for plan diffs — never edit manually
+- **Workspace** — isolated state within the same backend; useful for ephemeral envs
+
+### CLI
+
+```bash
+terraform init          # download providers + set up backend
+terraform validate      # check HCL syntax
+terraform fmt           # format files
+terraform plan          # diff desired vs actual state
+terraform apply         # apply the plan
+terraform destroy       # tear down all managed resources
+terraform output        # print output values
+terraform state list    # list all resources in state
+terraform state mv      # rename/move resource in state
+terraform state rm      # remove resource from state (stop managing, don't delete)
+terraform import        # pull existing infra into state
+```
+
+### Lifecycle Rules
+
+```hcl
+lifecycle {
+  prevent_destroy       = true   # block accidental destroy
+  create_before_destroy = true   # zero-downtime replacement
+  ignore_changes        = [labels]
+}
+```
+
+### CI/CD Pattern (GitHub Actions)
+
+```yaml
+# PR: plan only
+- run: terraform plan -out=tfplan
+
+# Merge to main: apply
+- run: terraform apply tfplan
 ```

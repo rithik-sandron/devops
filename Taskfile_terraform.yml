@@ -1,0 +1,27 @@
+version: "3"
+
+tasks:
+  create:
+    desc: Create new Terraform module
+    env:
+      MOD_PATH: ./infra/terraform/mods
+    cmds:
+      - mkdir -p $MOD_PATH/{{.CLI_ARGS}}
+      - |
+        cat > "$MOD_PATH/{{.CLI_ARGS}}/main.tf" << 'EOF'
+        terraform {
+          required_version = ">= 1.14.7"
+        }
+        EOF
+      - |
+        cat > "$MOD_PATH/{{.CLI_ARGS}}/variables.tf" << 'EOF'
+        variable "example_var" {
+          type = string
+        }
+        EOF
+      - |
+        cat > "$MOD_PATH/{{.CLI_ARGS}}/outputs.tf" << 'EOF'
+        output "example_output" {
+          value = var.example_var
+        }
+        EOF

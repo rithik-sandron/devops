@@ -1,5 +1,8 @@
 version: "3"
 
+includes:
+  terraform: ./Taskfile_terraform.yml
+
 tasks:
   setup:
     desc: sets up task[taskfile], local cluster, and other tools this repo uses
