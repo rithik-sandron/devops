@@ -4,11 +4,22 @@ includes:
   terraform: ./Taskfile_terraform.yml
 
 tasks:
-  setup:
+  build:
+    aliases: [p]
+    desc: build image
+    cmds:
+      - podman build --no-cache -t app:1 -f app/Containerfile app
+  run:
+    aliases: [p]
+    desc: run image
+    cmds:
+      - podman run -p 3000:3000 app:1
+  lsetup:
     desc: sets up task[taskfile], local cluster, and other tools this repo uses
     ignore_error: true
     cmds:
       - brew install go-task # Task for takefile
+      - curl -fsSL https://bun.com/install | bash # install bun
       - brew install act
       - brew install gh
       - brew install kubectl
@@ -20,14 +31,17 @@ tasks:
       - kind create cluster --name k8s --wait 30s
       - export KIND_EXPERIMENTAL_PROVIDER=podman
       - kubectl config use-context kind-k8s
-  start:
+  lstart:
     aliases: [st]
     desc: stops running podman machine
+    ignore_error: true
     cmds:
       - podman machine start
       - kubectl config use-context kind-k8s
       - export KIND_EXPERIMENTAL_PROVIDER=podman
-  stop:
+      - task build
+      - task run
+  lstop:
     aliases: [sp]
     desc: stops running podman machine
     cmd: podman machine stop

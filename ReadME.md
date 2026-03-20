@@ -1,5 +1,4 @@
 # 📚 Study
-
 - [Taskfile](#️-taskfile)
 - [Github Actions](#️-github-actions)
 - [Docker](#-docker)
@@ -70,6 +69,9 @@ In Docker, there is a node-level daemon running (e.g., `containerd`). Podman dir
 podman machine init
 podman machine start
 podman machine stop
+
+podman run -p 3000:3000 app 
+podman build --no-cache -t app -f Containerfile . 
 
 podman build --platform linux/amd64 --load --no-cache -f Containerfile -t hello:1 .
 podman run --rm -it hello:1 sh

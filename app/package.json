@@ -1,0 +1,23 @@
+{
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@tailwindcss/postcss": "4.0.0-alpha.13",
+    "@types/node": "20.11.17",
+    "@types/react": "18.2.55",
+    "@types/react-dom": "18.2.19",
+    "geist": "1.2.2",
+    "next": "^16.2.0",
+    "next-mdx-remote": "^4.4.1",
+    "postcss": "^8.5.8",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "sugar-high": "^0.6.1",
+    "tailwindcss": "4.0.0-alpha.13",
+    "typescript": "^5.9.3"
+  }
+}

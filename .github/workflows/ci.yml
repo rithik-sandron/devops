@@ -15,6 +15,7 @@ jobs:
       - run: echo "run by = $GITHUB_ACTOR"
 
       - uses: actions/checkout@v4
+      - uses: go-task/setup-task@v5
 
       - id: version
         uses: ./.github/actions/composite/version
