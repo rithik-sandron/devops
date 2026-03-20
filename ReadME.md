@@ -1,12 +1,12 @@
 # 📚 Study
 
 - [Taskfile](#️-taskfile)
-- [Github Actions](#github-actions)
-- [Docker](#docker)
-- [Podman](#podman)
-- [Local Cluster](#local-cluster)
-- [ArgoCD](#argocd)
-- [Terraform](#-terraform)
+- [Github Actions](#️-github-actions)
+- [Docker](#-docker)
+- [Podman](#-podman)
+- [Local Cluster](#️-local-cluster)
+- [ArgoCD](#-argocd)
+- [Terraform](#️-terraform)
 - GCP
 - Monitoring
 - Alerts
