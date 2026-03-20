@@ -1,5 +1,6 @@
 # 📚 Study
 
+- [Taskfile](#️-taskfile)
 - [Github Actions](#github-actions)
 - [Docker](#docker)
 - [Podman](#podman)
@@ -14,7 +15,7 @@
   - ISO27001 audit
 
 ## 🗂️ Taskfile
-
+Automate your local tasks through Task.
 ```bash
 task setup                    # first-time bootstrap
 task start                    # start local env
