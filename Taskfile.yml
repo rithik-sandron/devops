@@ -44,7 +44,9 @@ tasks:
   lstop:
     aliases: [sp]
     desc: stops running podman machine
-    cmd: podman machine stop
+    cmds:
+      - podman machine stop
+      - kind delete cluster --name k8s
   push:
     aliases: [p]
     desc: git add, commit, and push changes
