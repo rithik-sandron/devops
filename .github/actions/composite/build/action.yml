@@ -34,6 +34,7 @@ runs:
       with:
         username: ${{ secrets.REGISTRY_USER }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
+        logout: true
 
     - id: build
       shell: bash
