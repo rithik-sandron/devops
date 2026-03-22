@@ -9,12 +9,13 @@ spec:
     gitConfig:
       repository: https://github.com/rithik-sandron/devops.git
       branch: "main"
-      writeBackTarget: "argocd/app/deployment.yaml"
+      writeBackTarget: "argocd/app/deployment.yml"
   applicationRefs:
     - namePattern: "app*"
       images:
         - alias: "app-prod"
           imageName: "rithiksandron/app:d1.x.x"
   commonUpdateSettings:
+    pullSecret: "git-creds"
     updateStrategy: "semver"
     forceUpdate: false
