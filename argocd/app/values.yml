@@ -1,4 +1,4 @@
 namespace: prod
 image:
   repository: rithiksandron/app
-  tag: "1"
+  tag: "0.0.73"
