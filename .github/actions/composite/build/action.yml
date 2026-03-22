@@ -33,7 +33,8 @@ runs:
       run: |
         echo "Building Podman image using ${{ inputs.dockerfile }}"
         podman build --no-cache -t ${{ inputs.image-name }} -f ${{ inputs.dockerfile }} ${{ inputs.path }}
-        echo "image=${{ inputs.image-name }}" >> $GITHUB_OUTPUT
+        podman push rithiksandron/${{ inputs.image-name }}
+        echo "image=rithiksandron/${{ inputs.image-name }}" >> $GITHUB_OUTPUT
 
 outputs:
   image:

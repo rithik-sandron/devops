@@ -1,4 +1,5 @@
 # 📚 Study
+
 - [Taskfile](#️-taskfile)
 - [Github Actions](#️-github-actions)
 - [Docker](#-docker)
@@ -14,7 +15,9 @@
   - ISO27001 audit
 
 ## 🗂️ Taskfile
+
 Automate your local tasks through Task.
+
 ```bash
 task setup                    # first-time bootstrap
 task start                    # start local env
@@ -70,8 +73,8 @@ podman machine init
 podman machine start
 podman machine stop
 
-podman run -p 3000:3000 app 
-podman build --no-cache -t app -f Containerfile . 
+podman run -p 3000:3000 app
+podman build --no-cache -t app -f Containerfile .
 
 podman build --platform linux/amd64 --load --no-cache -f Containerfile -t hello:1 .
 podman run --rm -it hello:1 sh
@@ -151,7 +154,7 @@ Argo CD needs a cluster with CoreDNS. A Kind cluster has CoreDNS by default. Arg
 # Deploys kustomization from the argocd folder
 kubectl apply -k argocd/base --server-side --force-conflicts
 argocd admin dashboard -n argocd
-kubectl port-forward svc/app 3000:80 -n argocd  
+kubectl port-forward svc/app 3000:80 -n argocd
 ```
 
 #### 📦 Deploying Applications
@@ -202,18 +205,18 @@ Terraform is a declarative IaC tool that provisions infrastructure by reconcilin
 
 ### Roadmap
 
-| Phase | Topic | What to build |
-|---|---|---|
-| **1. Basics** | HCL syntax, providers, resources, variables, outputs, locals | Provision a GCS bucket |
-| **2. State** | Local vs remote state, `terraform.tfstate`, locking, `state mv/rm/import` | Remote backend on GCS + DynamoDB lock |
-| **3. Modules** | Input/output vars, `source`, registry modules, composition | Reusable VPC + compute module |
-| **4. Expressions** | `count`, `for_each`, `dynamic`, `depends_on`, `lifecycle`, conditionals | Multi-env resource sets |
-| **5. Backends** | GCS, S3+DynamoDB, Terraform Cloud, state isolation per env | Workspaced backend |
-| **6. Patterns** | Workspaces vs directory-per-env, Terragrunt DRY configs, `moved` blocks | Multi-env layout |
-| **7. Testing** | `terraform validate`, `plan` in CI, `terraform test` (native), Terratest | PR gate that runs plan |
-| **8. Security** | Secrets via Vault/SOPS, least-privilege service accounts, `sensitive = true` | No plaintext secrets in state |
-| **9. CI/CD** | Atlantis or GitHub Actions, plan on PR, apply on merge, drift detection | Full GitOps pipeline |
-| **10. Enterprise** | HCP Terraform, Sentinel policies, cost estimation, audit logs | Policy-as-code gate |
+| Phase              | Topic                                                                        | What to build                         |
+| ------------------ | ---------------------------------------------------------------------------- | ------------------------------------- |
+| **1. Basics**      | HCL syntax, providers, resources, variables, outputs, locals                 | Provision a GCS bucket                |
+| **2. State**       | Local vs remote state, `terraform.tfstate`, locking, `state mv/rm/import`    | Remote backend on GCS + DynamoDB lock |
+| **3. Modules**     | Input/output vars, `source`, registry modules, composition                   | Reusable VPC + compute module         |
+| **4. Expressions** | `count`, `for_each`, `dynamic`, `depends_on`, `lifecycle`, conditionals      | Multi-env resource sets               |
+| **5. Backends**    | GCS, S3+DynamoDB, Terraform Cloud, state isolation per env                   | Workspaced backend                    |
+| **6. Patterns**    | Workspaces vs directory-per-env, Terragrunt DRY configs, `moved` blocks      | Multi-env layout                      |
+| **7. Testing**     | `terraform validate`, `plan` in CI, `terraform test` (native), Terratest     | PR gate that runs plan                |
+| **8. Security**    | Secrets via Vault/SOPS, least-privilege service accounts, `sensitive = true` | No plaintext secrets in state         |
+| **9. CI/CD**       | Atlantis or GitHub Actions, plan on PR, apply on merge, drift detection      | Full GitOps pipeline                  |
+| **10. Enterprise** | HCP Terraform, Sentinel policies, cost estimation, audit logs                | Policy-as-code gate                   |
 
 ### Core Concepts
 

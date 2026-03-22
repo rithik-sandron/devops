@@ -4,6 +4,13 @@ includes:
   terraform: ./Taskfile_terraform.yml
 
 tasks:
+  push:
+    aliases: [p]
+    desc: git add, commit, and push changes
+    cmds:
+      - git add -A
+      - git commit -m "updates"
+      - git push
   build:
     aliases: [p]
     desc: build image
@@ -14,7 +21,31 @@ tasks:
     desc: run image
     cmds:
       - podman run -p 3000:3000 app:1
-  lsetup:
+  work:
+    desc: "Builds and runs the image"
+    cmds:
+      - task build
+      - task run
+
+  # Cluster
+  # ------------------------------------------------------------------------------------------------
+  cdeploy:
+    desc: "Deploys argocd and apps to cluster"
+    cmds:
+      - task lstart
+      - kubectl apply -k argocd/base --server-side --force-conflicts
+      - kubectl apply -f argocd/sync
+
+  ckind:
+    desc: "Create kind cluster"
+    cmds:
+      - export KIND_EXPERIMENTAL_PROVIDER=podman # use podman instead of docker
+      - kind create cluster --name k8s --wait 30s
+      - kubectl config use-context kind-k8s
+
+  # Local
+  # ------------------------------------------------------------------------------------------------
+  install:
     desc: sets up task[taskfile], local cluster, and other tools this repo uses
     ignore_error: true
     cmds:
@@ -26,37 +57,19 @@ tasks:
       - brew install podman
       - brew install argocd
       - brew install kind
-      - podman machine init
-      - podman machine start
-      - kind create cluster --name k8s --wait 30s
-      - export KIND_EXPERIMENTAL_PROVIDER=podman
-      - kubectl config use-context kind-k8s
-  lstart:
+
+  start:
     aliases: [st]
-    desc: stops running podman machine
+    desc: starts running podman machine and cluster
     ignore_error: true
     cmds:
+      - podman machine init
       - podman machine start
-      - kubectl config use-context kind-k8s
-      - export KIND_EXPERIMENTAL_PROVIDER=podman
-      - task build
-      - task run
-  lstop:
+      - task ckind
+
+  stop:
     aliases: [sp]
     desc: stops running podman machine
     cmds:
       - podman machine stop
       - kind delete cluster --name k8s
-  push:
-    aliases: [p]
-    desc: git add, commit, and push changes
-    cmds:
-      - git add -A
-      - git commit -m "updates"
-      - git push
-  cdeploy:
-    desc: "Deploys argocd and apps to cluster"
-    cmds:
-      - task lstart
-      - kubectl apply -k argocd/base --server-side --force-conflicts
-      - kubectl apply -f argocd/sync

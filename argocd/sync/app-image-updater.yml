@@ -1,0 +1,20 @@
+apiVersion: argocd-image-updater.argoproj.io/v1alpha1
+kind: ImageUpdater
+metadata:
+  name: app-image-updater
+  namespace: argocd
+spec:
+  writeBackConfig:
+    method: "git"
+    gitConfig:
+      repository: https://github.com/rithik-sandron/devops.git
+      branch: "main"
+      writeBackTarget: "argocd/app/deployment.yaml"
+  applicationRefs:
+    - namePattern: "app*"
+      images:
+        - alias: "prod app"
+          imageName: "rithiksandron/app:1.x.x"
+  commonUpdateSettings:
+    updateStrategy: "semver"
+    forceUpdate: false
