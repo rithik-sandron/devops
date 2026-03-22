@@ -4,17 +4,17 @@ metadata:
   name: app-image-updater
   namespace: argocd
 spec:
+  commonUpdateSettings:
+    updateStrategy: "semver"
+    allowTags: "regexp:^[0-9]+.*"
   writeBackConfig:
-    method: "git"
+    method: "git:secret:argocd/git-creds"
     gitConfig:
       repository: https://github.com/rithik-sandron/devops.git
       branch: "main"
       writeBackTarget: "helmvalues:argocd/app/values.yml"
-      credentials: "secret:argocd/git-creds"
   applicationRefs:
     - namePattern: "app*"
       images:
         - alias: "app-prod"
           imageName: "rithiksandron/app"
-          updateStrategy: "semver"
-          constraint: "1.x"
