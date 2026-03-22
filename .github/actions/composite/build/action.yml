@@ -28,6 +28,11 @@ runs:
       shell: bash
       run: echo "Github Action path = $GITHUB_ACTION_PATH"
 
+    - id: login-to-docker
+      shell: bash
+      name: Login to local registry
+      run: echo "${{ secrets.REGISTRY_PASSWORD }}" | docker login localhost:5000 -u "${{ secrets.REGISTRY_USER }} --password-stdin"
+
     - id: build
       shell: bash
       run: |
