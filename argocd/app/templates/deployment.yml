@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: app
-  namespace: prod
+  namespace: { { .Values.namespace } }
 spec:
   replicas: 1
   selector:
@@ -15,4 +15,4 @@ spec:
     spec:
       containers:
         - name: app
-          image: rithiksandron/app:1
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"

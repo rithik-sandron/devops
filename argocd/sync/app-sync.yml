@@ -9,9 +9,12 @@ spec:
     repoURL: https://github.com/rithik-sandron/devops.git
     targetRevision: HEAD
     path: argocd/app
+    helm:
+      valueFiles:
+        - values.yml
   destination:
     server: https://kubernetes.default.svc
-    namespace: argocd
+    namespace: prod
   syncPolicy:
     automated:
       prune: true
