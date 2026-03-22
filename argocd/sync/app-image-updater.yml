@@ -13,8 +13,8 @@ spec:
   applicationRefs:
     - namePattern: "app*"
       images:
-        - alias: "prod app"
-          imageName: "rithiksandron/app:1.x.x"
+        - alias: "app-prod"
+          imageName: "rithiksandron/app:1.x"
   commonUpdateSettings:
     updateStrategy: "semver"
     forceUpdate: false

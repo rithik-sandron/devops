@@ -1,15 +1,36 @@
-# This is for argo to self manage itself
+# # This is for argo to self manage itself
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: argocd
+#   namespace: argocd
+# spec:
+#   project: default
+#   source:
+#     repoURL: https://github.com/rithik-sandron/devops.git
+#     path: argocd/base
+#     targetRevision: HEAD
+#   destination:
+#     server: https://kubernetes.default.svc
+#     namespace: argocd
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true
+
+# ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: argocd
+  name: argocd-image-updater
   namespace: argocd
 spec:
   project: default
   source:
-    repoURL: https://github.com/rithik-sandron/devops.git
-    path: argocd/base
-    targetRevision: HEAD
+    repoURL: https://github.com/argoproj-labs/argocd-image-updater.git
+    path: manifests/install
+    targetRevision: stable
+
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd
