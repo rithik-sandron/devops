@@ -17,24 +17,3 @@ spec:
     automated:
       prune: true
       selfHeal: true
-
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: argocd-image-updater
-  namespace: argocd
-spec:
-  project: default
-  source:
-    repoURL: https://github.com/argoproj-labs/argocd-image-updater.git
-    path: manifests/install
-    targetRevision: stable
-
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: argocd
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true

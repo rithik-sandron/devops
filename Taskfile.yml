@@ -59,6 +59,7 @@ tasks:
         brew install podman
         brew install argocd
         brew install kind
+        podman machine init
 
   start:
     aliases: [st]
@@ -66,7 +67,6 @@ tasks:
     ignore_error: true
     cmds:
       - |
-        podman machine init
         podman machine start
         task ckind
 
