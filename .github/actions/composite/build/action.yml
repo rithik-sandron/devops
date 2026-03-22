@@ -21,6 +21,10 @@ inputs:
     required: false
     default: "local"
 
+  auth:
+    description: "Auth token for docker"
+    required: true
+
 runs:
   using: "composite"
   steps:
@@ -33,7 +37,7 @@ runs:
       uses: docker/login-action@v4
       with:
         username: rithiksandron
-        password: ${{ secrets.DOCKER_PASSWORD }}
+        password: ${{ inputs.auth }}
         logout: true
 
     - id: build

@@ -26,6 +26,7 @@ jobs:
           dockerfile: $GITHUB_WORKSPACE/app/Containerfile
           path: $GITHUB_WORKSPACE/app
           image-name: ${{ steps.version.outputs.app_with_tag }}
+          auth: ${{ secrets.DOCKER_PASSWORD }}
 
       - id: print
         run: echo "Image = ${{ steps.build.outputs.image }}"
