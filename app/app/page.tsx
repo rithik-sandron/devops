@@ -4,7 +4,7 @@ export default function Page() {
   return (
     <section>
       <h1 className="mb-8 text-2xl font-semibold tracking-tighter">
-        My Portfolio
+        Owl's Den
       </h1>
       <p className="mb-4">
         {`Owl is a rogue archaeologist who discovered a portal beneath the Sahara
