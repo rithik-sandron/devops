@@ -14,7 +14,7 @@ spec:
     - namePattern: "app*"
       images:
         - alias: "app-prod"
-          imageName: "rithiksandron/app:1.x"
+          imageName: "rithiksandron/app:d1.x.x"
   commonUpdateSettings:
     updateStrategy: "semver"
     forceUpdate: false

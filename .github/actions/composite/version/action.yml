@@ -35,7 +35,7 @@ runs:
           patch=$(($GITHUB_RUN_NUMBER % 1000))
           minor=$(($GITHUB_RUN_NUMBER / 1000))
           major=$(($GITHUB_RUN_NUMBER / 10000))
-          TAG="${major}.${minor}.${patch}"
+          TAG="d${major}.${minor}.${patch}"
         fi
         echo "tag=$TAG" >> $GITHUB_OUTPUT
         echo "app_with_tag=app:$TAG" >> $GITHUB_OUTPUT
