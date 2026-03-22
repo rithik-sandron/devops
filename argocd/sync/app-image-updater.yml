@@ -12,7 +12,7 @@ spec:
     gitConfig:
       repository: https://github.com/rithik-sandron/devops.git
       branch: "main"
-      writeBackTarget: "helmvalues:argocd/app/values.yml"
+      writeBackTarget: "helmvalues:values.yml"
   applicationRefs:
     - namePattern: "app*"
       images:
