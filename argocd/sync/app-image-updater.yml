@@ -18,3 +18,7 @@ spec:
       images:
         - alias: "app-prod"
           imageName: "rithiksandron/app"
+          manifestTargets:
+            helm:
+              name: "image.repository"
+              tag: "image.tag"

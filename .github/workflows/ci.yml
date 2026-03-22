@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - "argocd/app/**"
+      - "app/**"
 
 jobs:
   build:
